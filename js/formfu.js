@@ -84,6 +84,7 @@
             //
             if ($['ui'] && $['ui']['tabs'] && this.hasClass('tabs')) {
                 // TODO: fill me
+                // console.log('doing tabs...');
             } else if ($['ui'] && $['ui']['accordion'] && this.hasClass('accordion')) {
                 // TODO: fill me
             }
@@ -95,9 +96,8 @@
 })(jQuery);
 
 //
-// automatically do the job
+// automatically do the job as soon as we are ready
 //
-
 jQuery(function() {
     // iterate thru every form of interest and enhance them
     $('form.formfu').formfu();
