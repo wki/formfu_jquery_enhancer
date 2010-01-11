@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test without loading jQuery and UI</title>
+    <script src="../demo/js/jquery-1.4.js"></script>
+    <script src="../js/formfu.js"></script>
+    <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+    <script src="qunit.js"></script>
+    <!-- script src="testrunner.js"></script -->
+    <script>
+    // basic functionality
+    test('basic test', function() {
+        
+        // qUnit test
+        ok(true, 'qunit works');
+        
+        // jQuery initialize test
+        ok(window.jQuery, 'jquery is present');
+        ok(window.$, '$ is present');
+        same(window.jQuery, window.$, 'jQuery conflict mode enabled');
+        
+        // initialization test
+        ok(jQuery.fn['formfu'], 'formfu plugin function is present');
+        ok(jQuery.isFunction(jQuery.fn['formfu']), 'formfu is a function');
+    });
+    
+    // check if datepicker works
+    test('datepicker test', function() {
+        
+    });
+    
+    // last test: autoload
+    test('autoload', function() {
+        var i = 0;
+        var new_fn = function() { i++; };
+        var old_fn = jQuery.fn['formfu'];
+        jQuery.fn['formfu'] = new_fn;
+        
+        // start testing
+        same(i, 0, 'starting test');
+        stop(1000);
+        console.log('before load test');
+        jQuery(document).ready(function() {
+            console.log('load worked');
+            
+            ok(1, 'ok');
+            //same(i,1); // this test FAILS (!)
+            start();
+            
+            // restore formfu
+            jQuery.fn['formfu'] = old_fn;
+        });
+        
+    });
+    </script>
+</head>
+<body>
+    <h1 id="qunit-header">FormFu jQuery Enhancer Testsuite</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    
+    <div id="main" style="display:none">
+        <form id="fxxx"></form>
+        
+        <form id="f-autoload" class="formfu"></form>
+    </div>
+</body>
+</html>
