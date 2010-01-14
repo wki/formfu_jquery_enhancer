@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test without loading jQuery and UI</title>
+    <title>FormFu jQuery Enhancer Testsuite</title>
     <script src="../demo/js/jquery-1.4.js"></script>
     <script src="../demo/js/jquery-ui-1.7.2.js"></script>
     <script src="../js/formfu.js"></script>
@@ -33,10 +33,16 @@
     
     // check if datepicker works
     test('datepicker', function() {
-        same($('#fdate1 input.date').data('events'), undefined); // no event handlers present
+        // see if $(...).datepicker() is present
+        ok(jQuery.fn['datepicker'], 'datepicker plugin function is present');
+        ok(jQuery.isFunction(jQuery.fn['datepicker']), 'datepicker is a function');
         
+        // no event handlers present before field is treated magically
+        same($('#fdate1 input.date').data('events'), undefined);
+        
+         // we must have event handlers after magic treatment
         $('#fdate1').formfu();
-        ok($('#fdate1 input.date').data('events') !== undefined); // we have event handlers!
+        ok($('#fdate1 input.date').data('events') !== undefined);
     });
     
     // last test: autoload
@@ -61,6 +67,8 @@
             jQuery.fn['formfu'] = old_fn;
         });
         
+        // try to fire this event -- does not work
+        // jQuery(document).trigger('ready');
     });
     </script>
 </head>
